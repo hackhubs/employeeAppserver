@@ -1,5 +1,6 @@
 const express = require("express")
-const app = express()
+const app = express();
+const path = require("path");
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const axios = require("axios")
@@ -8,6 +9,7 @@ app.use(bodyParser.json())
 
 const Employee = mongoose.model("employee")
 
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use('/data',(req,res)=>{
     Employee.find({}).then(data=>{
