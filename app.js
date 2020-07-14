@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 const Employee = mongoose.model("employee")
 
 
-app.get('/data',(req,res)=>{
+app.use('/data',(req,res)=>{
     Employee.find({}).then(data=>{
         res.send(data)
     })
@@ -23,7 +23,7 @@ mongoose.connect(mongoUri,{useNewUrlParser: true , useUnifiedTopology: true})
     .then(() => console.log('MongoDB Connected .. to abhav database'))
     .catch(err => console.log(err));
 
-app.post('/send-data',(req,res)=>{
+app.use('/send-data',(req,res)=>{
     const employee = new Employee({
         name:req.body.name,
         email:req.body.email,
@@ -40,7 +40,7 @@ app.post('/send-data',(req,res)=>{
         )
 })
 
-app.post('/delete',(req,res)=>{
+app.use('/delete',(req,res)=>{
     Employee.findByIdAndRemove(req.body.id)
     .then(data => {
         console.log(data)
@@ -51,7 +51,7 @@ app.post('/delete',(req,res)=>{
         })
 })
 
-app.post('/update',(req,res)=>{
+app.use('/update',(req,res)=>{
     Employee.findByIdAndUpdate(req.body.id,{
         name:req.body.name,
         email:req.body.email,
